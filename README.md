@@ -25,10 +25,6 @@ a per-sample contamination bar plot.
 
 ## How it works
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Trethewey/Sentinel/main/assets/flow.svg" alt="Sentinel pipeline flow" width="100%">
-</p>
-
 At each SNP site, for every ordered pair of samples (donor S, recipient T),
 Sentinel computes:
 
