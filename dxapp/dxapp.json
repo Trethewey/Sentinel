@@ -1,0 +1,74 @@
+{
+  "name": "sentinel",
+  "title": "Sentinel - Contamination Detector",
+  "summary": "Cross-sample contamination and identity detector for targeted-capture NGS runs.",
+  "version": "0.1.0",
+  "developers": [],
+  "authorizedUsers": [],
+  "dxapi": "1.0.0",
+  "openSource": false,
+  "inputSpec": [
+    {
+      "name": "sample_sheet",
+      "label": "Sample sheet (CSV with sample_id column)",
+      "class": "file",
+      "patterns": ["*.csv"]
+    },
+    {
+      "name": "bams",
+      "label": "Aligned BAM files",
+      "class": "array:file",
+      "patterns": ["*.bam"]
+    },
+    {
+      "name": "bam_indexes",
+      "label": "BAM indexes (.bai)",
+      "class": "array:file",
+      "patterns": ["*.bai"]
+    },
+    {
+      "name": "catalog",
+      "label": "Site catalog TSV (from sentinel build-panel)",
+      "class": "file",
+      "patterns": ["*_sites.tsv"]
+    },
+    {
+      "name": "reference_fasta",
+      "label": "Reference FASTA (optional)",
+      "class": "file",
+      "patterns": ["*.fa", "*.fasta", "*.fa.gz"],
+      "optional": true
+    },
+    {
+      "name": "threads",
+      "label": "Worker threads",
+      "class": "int",
+      "default": 16
+    },
+    {
+      "name": "strip_chr_prefix",
+      "label": "Strip 'chr' prefix from catalog contigs to match BAMs",
+      "class": "boolean",
+      "default": false
+    }
+  ],
+  "outputSpec": [
+    { "name": "report_html",   "class": "file", "patterns": ["*.html"] },
+    { "name": "per_sample_csv","class": "file", "patterns": ["per_sample_report.csv"] },
+    { "name": "per_pair_csv",  "class": "file", "patterns": ["per_pair_report.csv"] }
+  ],
+  "runSpec": {
+    "interpreter": "bash",
+    "file": "src/code.sh",
+    "distribution": "Ubuntu",
+    "release": "22.04",
+    "version": "1"
+  },
+  "regionalOptions": {
+    "aws:eu-west-2": {
+      "systemRequirements": {
+        "main": { "instanceType": "mem1_ssd1_v2_x16" }
+      }
+    }
+  }
+}

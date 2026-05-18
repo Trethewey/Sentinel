@@ -1,0 +1,7 @@
+sample_id,sample_type,patient_id,well
+SAMPLE001,clinical,P001,A1
+SAMPLE002,clinical,P002,B1
+SAMPLE003,reference_fresh,,C1
+NEG_CTRL_01,control,,D1
+SAMPLE004,clinical,P003,A2
+SAMPLE005,clinical,P004,B2

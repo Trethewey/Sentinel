@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+build/
+dist/
+.eggs/
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Editors / IDEs
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Large reference data (download separately, see README)
+*.fa
+*.fasta
+*.fa.fai
+*.dict
+*.bam
+*.bai
+*.vcf
+*.vcf.gz
+*.vcf.gz.tbi
+*.bcf
+*.bed.gz
+
+# Run outputs
+results/
+work/
+cache/
+*.parquet
+
+# Sentinel-generated artefacts that shouldn't be committed
+report.html
+report.xlsx
+per_sample_report.tsv
+per_pair_report.tsv
+per_sample_report.csv

@@ -1,0 +1,37 @@
+<svg width="100%" viewBox="0 0 680 300" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>Sentinel - NGS contamination detection</title>
+  <desc>A navy shield containing sequencing reads tracing an S, one read in red marking a contaminated alignment.</desc>
+
+  <path d="M274 38 L406 38 L406 156 Q406 198 340 218 Q274 198 274 156 Z" fill="#042c53"/>
+
+  <rect x="315" y="42"  width="50" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="287" y="51"  width="62" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="273" y="60"  width="54" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="258" y="69"  width="60" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="256" y="78"  width="58" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="265" y="87"  width="52" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="274" y="96"  width="64" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="298" y="105" width="56" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="320" y="114" width="58" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="337" y="123" width="66" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="359" y="132" width="54" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="363" y="141" width="62" height="8" rx="2" fill="#f09595"/>
+  <rect x="365" y="150" width="58" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="354" y="159" width="60" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="341" y="168" width="52" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="314" y="177" width="62" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="300" y="186" width="46" height="8" rx="2" fill="#85b7eb"/>
+
+  <polyline points="363,147 363,141 369,141" fill="none" stroke="#f7c1c1" stroke-width="1.5" stroke-linecap="round"/>
+  <polyline points="419,141 425,141 425,147" fill="none" stroke="#f7c1c1" stroke-width="1.5" stroke-linecap="round"/>
+  <polyline points="363,143 363,149 369,149" fill="none" stroke="#f7c1c1" stroke-width="1.5" stroke-linecap="round"/>
+  <polyline points="419,149 425,149 425,143" fill="none" stroke="#f7c1c1" stroke-width="1.5" stroke-linecap="round"/>
+
+  <path d="M274 38 L406 38 L406 156 Q406 198 340 218 Q274 198 274 156 Z" fill="none" stroke="#85b7eb" stroke-width="2"/>
+
+  <line x1="425" y1="145" x2="433" y2="145" stroke="#f09595" stroke-width="1"/>
+  <circle cx="439" cy="145" r="6" fill="#f09595"/>
+
+  <text x="340" y="255" text-anchor="middle" font-family="Georgia, serif" font-size="34" font-weight="700" letter-spacing="10" fill="#b5d4f4">SENTINEL</text>
+  <text x="340" y="278" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" letter-spacing="3" fill="#85b7eb">NGS CONTAMINATION DETECTION</text>
+</svg>
