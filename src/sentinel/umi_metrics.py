@@ -29,7 +29,7 @@ try:
 except ImportError:  # pragma: no cover - tests use synthetic UMI sets
     pysam = None
 
-from config import UMI_MAX_PER_SAMPLE, UMI_TAG
+from .config import UMI_MAX_PER_SAMPLE, UMI_TAG
 
 
 # ---------------------------------------------------------------------------

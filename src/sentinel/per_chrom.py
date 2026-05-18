@@ -12,7 +12,7 @@ from typing import Dict, Iterable, List, Sequence, Tuple
 import numpy as np
 import pandas as pd
 
-from config import GT_HOM_ALT, GT_HOM_REF
+from .config import GT_HOM_ALT, GT_HOM_REF
 
 
 def per_chrom_scores(

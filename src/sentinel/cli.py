@@ -10,33 +10,29 @@ from __future__ import annotations
 import argparse
 import csv
 import os
-import subprocess
 import sys
 from pathlib import Path
 
 from . import __version__
 
 
-PKG_ROOT = Path(__file__).resolve().parent
-SRC_ROOT = PKG_ROOT.parent  # the flat src/ tree
-
-
-def _py_call(script: str, *args: str, env: dict | None = None) -> int:
-    """Invoke a script from the flat src/ tree as `python -u <script> <args>`."""
-    cmd = [sys.executable, "-u", str(SRC_ROOT / script), *args]
-    merged_env = os.environ.copy()
-    if env:
-        merged_env.update({k: str(v) for k, v in env.items()})
-    return subprocess.run(cmd, env=merged_env, check=False).returncode
+def _set_env(env: dict) -> dict:
+    """Merge env over os.environ and apply to current process."""
+    for k, v in env.items():
+        os.environ[k] = str(v)
+    return os.environ
 
 
 def cmd_build_panel(args: argparse.Namespace) -> int:
-    sub_args = ["from-bed",
-                "--bed", str(args.bed),
-                "--master-db", str(args.master_db),
-                "--panel-name", args.panel_name,
-                "--out", str(args.out)]
-    return _py_call("panel_builder.py", *sub_args)
+    from . import panel_builder
+    parser_args = argparse.Namespace(
+        bed=str(args.bed),
+        master_db=str(args.master_db),
+        panel_name=args.panel_name,
+        out=str(args.out),
+    )
+    panel_builder.from_bed(parser_args)
+    return 0
 
 
 def cmd_run(args: argparse.Namespace) -> int:
@@ -55,46 +51,51 @@ def cmd_run(args: argparse.Namespace) -> int:
     manifest_tsv = work / "run_manifest.tsv"
     _build_manifest(args.sample_sheet, args.bams_dir, manifest_tsv)
 
-    env = {
+    _set_env({
         "PROJ": str(out),
         "SENTINEL_PROJECT": str(out),
         "SENTINEL_WORK": str(work),
         "SENTINEL_CACHE": str(cache),
         "SENTINEL_RESULTS": str(results),
         "SENTINEL_REF": str(args.ref) if args.ref else "",
-    }
+    })
 
-    rc = _py_call("extract_ad.py", "--n-proc", str(args.threads),
-                  "--scout-tsv", str(catalog_dst), env=env)
-    if rc:
-        return rc
+    # Need to re-import config after env vars are set so paths pick them up.
+    from . import config
 
-    rc = _py_call("pipeline.py",
-                  "--ad-parquet", str(work / "ad_long.parquet"),
-                  "--out-dir", str(scores),
-                  "--scout-sites", str(catalog_dst),
-                  "--bam-manifest", str(manifest_tsv),
-                  env=env)
-    if rc:
-        return rc
+    # Stage 1: extract allele depths from each BAM at the catalog sites.
+    from .extract_ad import main as extract_main
+    sys.argv = ["extract_ad", "--n-proc", str(args.threads), "--scout-tsv", str(catalog_dst)]
+    extract_main()
 
-    rc = _py_call("post_process.py", env=env)
-    if rc:
-        return rc
+    # Stage 2: score (identity, directional, deflation, tails, haplotypes).
+    from .pipeline import run as pipeline_run
+    pipeline_run(
+        ad_parquet=work / "ad_long.parquet",
+        out_dir=scores,
+        scout_sites_path=catalog_dst,
+        bam_manifest_path=manifest_tsv,
+    )
 
-    rc = _py_call("make_html_report.py", env=env)
-    if rc:
-        return rc
-    rc = _py_call("make_xlsx_report.py", env=env)
-    return rc
+    # Stage 3: post-process verdicts.
+    from .post_process import main as post_main
+    post_main()
+
+    # Stage 4: HTML + XLSX reports.
+    from .make_html_report import main as html_main
+    html_main()
+    from .make_xlsx_report import main as xlsx_main
+    xlsx_main()
+    return 0
 
 
 def cmd_report(args: argparse.Namespace) -> int:
-    env = {"PROJ": str(Path(args.results_dir).resolve())}
-    rc = _py_call("make_html_report.py", env=env)
-    if rc:
-        return rc
-    return _py_call("make_xlsx_report.py", env=env)
+    _set_env({"PROJ": str(Path(args.results_dir).resolve())})
+    from .make_html_report import main as html_main
+    from .make_xlsx_report import main as xlsx_main
+    html_main()
+    xlsx_main()
+    return 0
 
 
 def _stage_catalog(src: Path, dst: Path, strip_chr: bool) -> None:

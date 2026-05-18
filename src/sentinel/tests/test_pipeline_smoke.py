@@ -6,8 +6,8 @@ and asserts the report files exist with the expected columns.
 import numpy as np
 import pytest
 
-from pipeline import run
-from tests.synth import long_ad_frame, random_genotypes
+from sentinel.pipeline import run
+from sentinel.tests.synth import long_ad_frame, random_genotypes
 
 
 @pytest.fixture

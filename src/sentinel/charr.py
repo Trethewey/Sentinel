@@ -21,7 +21,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from config import GT_HOM_ALT
+from .config import GT_HOM_ALT
 
 
 def homalt_vaf_deflation(

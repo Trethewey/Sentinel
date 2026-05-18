@@ -29,7 +29,7 @@ from typing import Dict, Optional
 
 import pandas as pd
 
-from charr import homalt_vaf_deflation
+from .charr import homalt_vaf_deflation
 
 
 def _mc_remote(sid, bp, scout, sample_n_sites):
@@ -39,21 +39,21 @@ def _mc_remote(sid, bp, scout, sample_n_sites):
     res["sample_id"] = sid
     return res
 
-from config import (
+from .config import (
     CACHE_DIR, GT_NOCALL, HAP_PAIR_MAX_DIST, HET_CALL_HI, HET_CALL_LO,
     HOM_ALT_LO, IDENTITY_CLUSTER_THRESHOLD, MIN_DEPTH_CALL, MIN_DEPTH_RECIPIENT,
     RESULTS_DIR, VERDICT, WORK_DIR,
 )
-from directional import directional_matrix
-from genotyper import call_genotypes
-from identity_loh import cluster_identity, identity_matrix_loh
-from io_ad import load_ad_long
-from per_chrom import per_chrom_scores
-from pivot import pivot_matrices, site_chroms
-from read_haplotypes import find_site_pairs, haplotype_score
-from report import assemble_per_pair, assemble_per_sample, write_reports
-from tails import vaf_tail_fraction
-from umi_metrics import molecule_counts
+from .directional import directional_matrix
+from .genotyper import call_genotypes
+from .identity_loh import cluster_identity, identity_matrix_loh
+from .io_ad import load_ad_long
+from .per_chrom import per_chrom_scores
+from .pivot import pivot_matrices, site_chroms
+from .read_haplotypes import find_site_pairs, haplotype_score
+from .report import assemble_per_pair, assemble_per_sample, write_reports
+from .tails import vaf_tail_fraction
+from .umi_metrics import molecule_counts
 
 
 def _flagged_pairs_from_directional(directional: dict, sample_to_group: Dict[str, int],

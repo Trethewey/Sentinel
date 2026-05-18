@@ -7,7 +7,7 @@ import math
 
 import numpy as np
 
-from umi_metrics import (
+from sentinel.umi_metrics import (
     background_jaccard_estimate, jaccard, umi_footprint_overlap,
 )
 

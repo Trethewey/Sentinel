@@ -22,7 +22,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from config import GT_HET, GT_HOM_ALT, GT_HOM_REF, GT_NOCALL
+from .config import GT_HET, GT_HOM_ALT, GT_HOM_REF, GT_NOCALL
 
 
 def _pair_masks(g_arr: np.ndarray, dep_arr: np.ndarray, min_depth: int):

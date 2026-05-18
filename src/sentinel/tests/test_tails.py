@@ -1,10 +1,10 @@
 """VAF-in-tails anomaly score tests."""
 import numpy as np
 
-from genotyper import call_genotypes
-from pivot import pivot_matrices
-from tails import vaf_tail_fraction
-from tests.synth import long_ad_frame, random_genotypes
+from sentinel.genotyper import call_genotypes
+from sentinel.pivot import pivot_matrices
+from sentinel.tails import vaf_tail_fraction
+from sentinel.tests.synth import long_ad_frame, random_genotypes
 
 
 def test_clean_sample_low_tail_fraction():
