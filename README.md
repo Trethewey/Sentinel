@@ -144,6 +144,16 @@ etc.).
 Both files are bgzipped and tabix-indexed. Download, drop next to your
 analysis, point `sentinel build-panel --master-db` at them.
 
+```bash
+# exomes (1.8 GB) + index
+curl -LO https://github.com/Trethewey/Sentinel/releases/download/v0.1.0/gnomad_v41_exomes_common.vcf.gz
+curl -LO https://github.com/Trethewey/Sentinel/releases/download/v0.1.0/gnomad_v41_exomes_common.vcf.gz.tbi
+
+# genomes (15 GB) + index — only needed for non-coding bait panels
+curl -LO https://github.com/Trethewey/Sentinel/releases/download/v0.1.0/gnomad_v41_genomes_maf01.vcf.gz
+curl -LO https://github.com/Trethewey/Sentinel/releases/download/v0.1.0/gnomad_v41_genomes_maf01.vcf.gz.tbi
+```
+
 To build your own from scratch see `tools/build_master_db.sh`.
 
 ---
