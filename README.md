@@ -3,7 +3,9 @@
 </p>
 
 Sentinel finds cross-sample contamination, sample swaps, and identity drift on
-a run of targeted NGS samples.
+a run of targeted NGS samples. It works by comparing each sample's genotype
+calls to every other sample on the same run, looking for the asymmetric
+read-mixing signature that contamination leaves behind.
 
 Sentinel reads each BAM at the SNP catalog you built for your panel, calls
 genotypes, and scores every sample against every other sample on the run
