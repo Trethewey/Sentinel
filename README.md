@@ -213,19 +213,64 @@ The Excel report carries every column and a legend sheet explaining each one.
 
 ## How it works
 
-At each SNP site in the catalog, Sentinel asks: at sites where the candidate
-donor has the alt allele but the recipient should be hom-ref, how often does
-the recipient actually carry alt reads? Pure samples score near zero;
-contaminated samples carry the donor's alt reads at a fraction approximately
-equal to the contamination level (alpha).
+```mermaid
+flowchart LR
+    subgraph Inputs
+        SS[sample sheet]
+        BAM[BAMs]
+        CAT[SNP catalog]
+    end
+    subgraph sentinel_run [sentinel run]
+        EX[extract_ad<br/>walk each BAM<br/>at catalog sites]
+        SC[pipeline<br/>identity, directional,<br/>deflation, tails,<br/>haplotypes]
+        PP[post_process<br/>anchor check<br/>+ verdict]
+    end
+    subgraph Outputs
+        H[report.html]
+        X[report.xlsx]
+        TSV[per_sample_report.tsv]
+        CSV[per_sample_report.csv]
+    end
+    SS --> EX
+    BAM --> EX
+    CAT --> EX
+    EX --> SC
+    SC --> PP
+    PP --> H
+    PP --> X
+    PP --> TSV
+    PP --> CSV
+```
 
-The detector layers this asymmetric matrix score with a CHARR-style hom-alt
-deflation metric, a VAF-tail anomaly score, a 3+-haplotype read-level check,
-and an identity-anchor cross-check. The verdict logic combines all of these
-with sample-type-aware thresholds: controls and FFPE samples are held to
-looser bars than fresh clinical samples.
+At each SNP site, for every ordered pair of samples (donor S, recipient T),
+Sentinel computes:
 
-For more detail, see `docs/method.md`.
+    score(S, T) = mean alt-VAF in T over informative sites - background(T)
+
+Informative sites are those at which the recipient T is called
+homozygous-reference at sufficient depth, the donor S is alt-bearing, and T
+meets the recipient-depth threshold. The score reported as `score_homalt`
+further restricts the informative set to sites where S is homozygous-alt
+(not just heterozygous). At a donor-hom-alt / recipient-hom-ref site, the
+expected alt fraction in a recipient contaminated by the donor at fraction
+α equals α — the donor contributes alt-bearing reads, the recipient
+contributes reference reads. At a donor-het site that expected value equals
+α / 2. Restricting to hom-alt sites therefore gives a direct estimate of
+the contamination fraction from that donor.
+
+The `background(T)` term is the mean alt-VAF in T at T's own hom-ref sites,
+T's per-sample sequencing-error floor. Subtracting it makes `score(S, T)`
+zero when T has no contamination. The matrix is asymmetric: row sums over
+`score(S, T)` give the candidate donors pointing into recipient T, column
+sums give the samples T is leaking into. Within-identity-group pairs
+(replicates of the same individual) are masked out so they don't generate
+false donor inferences.
+
+Around that score, Sentinel layers a CHARR-style hom-alt deflation metric,
+a VAF-tail anomaly score, a read-level 3+-haplotype check, and an
+identity-anchor cross-check. The verdict logic combines all of these with
+sample-type-aware thresholds: controls and FFPE samples are held to looser
+bars than fresh clinical samples.
 
 ---
 
