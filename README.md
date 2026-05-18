@@ -129,12 +129,12 @@ Each command has `--help` with the full set of options.
 `sentinel build-panel` needs a master VCF of common SNPs. The recommended
 source is gnomAD v4.1, filtered to biallelic SNPs at MAF >= 5%.
 
-Two pre-built distributions are published on the GitHub Releases page:
+Two pre-built distributions are published:
 
-| File | Source | Sites | Size |
-|---|---|---|---|
-| `gnomad_v41_exomes_common.vcf.gz` | gnomAD v4.1 exomes, MAF >= 5%, biallelic SNPs | ~2.6M | ~1.8 GB |
-| `gnomad_v41_genomes_maf01.vcf.gz` | gnomAD v4.1 genomes, MAF >= 1%, biallelic SNPs | ~15M | ~15 GB |
+| File | Source | Sites | Size | Host |
+|---|---|---|---|---|
+| `gnomad_v41_exomes_common.vcf.gz` | gnomAD v4.1 exomes, MAF >= 5%, biallelic SNPs | ~2.6M | ~1.8 GB | GitHub Releases |
+| `gnomad_v41_genomes_maf01.vcf.gz` | gnomAD v4.1 genomes, MAF >= 1%, biallelic SNPs | ~15M | ~15 GB | Zenodo, DOI [10.5281/zenodo.20264481](https://doi.org/10.5281/zenodo.20264481) |
 
 The exomes file works for most capture panels (gene panels, exome panels,
 targeted hybridisation-capture assays). Use the genomes file when your panel
@@ -145,13 +145,13 @@ Both files are bgzipped and tabix-indexed. Download, drop next to your
 analysis, point `sentinel build-panel --master-db` at them.
 
 ```bash
-# exomes (1.8 GB) + index
+# exomes (1.8 GB) + index, from GitHub
 curl -LO https://github.com/Trethewey/Sentinel/releases/download/v0.1.0/gnomad_v41_exomes_common.vcf.gz
 curl -LO https://github.com/Trethewey/Sentinel/releases/download/v0.1.0/gnomad_v41_exomes_common.vcf.gz.tbi
 
-# genomes (15 GB) + index — only needed for non-coding bait panels
-curl -LO https://github.com/Trethewey/Sentinel/releases/download/v0.1.0/gnomad_v41_genomes_maf01.vcf.gz
-curl -LO https://github.com/Trethewey/Sentinel/releases/download/v0.1.0/gnomad_v41_genomes_maf01.vcf.gz.tbi
+# genomes (15 GB) + index, from Zenodo
+curl -LO https://zenodo.org/records/20264481/files/gnomad_v41_genomes_maf01.vcf.gz
+curl -LO https://zenodo.org/records/20264481/files/gnomad_v41_genomes_maf01.vcf.gz.tbi
 ```
 
 To build your own from scratch see `tools/build_master_db.sh`.
@@ -259,6 +259,8 @@ Sentinel builds on.
 - Chen S, Francioli LC, Goodrich JK et al. *A genomic mutational constraint
   map using variation in 76,156 human genomes* (gnomAD v4). Nature
   625:92-100, 2024.
+- Trethewey C. *Sentinel reference panel: gnomAD v4.1 genomes biallelic SNPs
+  at MAF >= 1%* (2026). Zenodo. DOI: 10.5281/zenodo.20264481.
 
 **Tools**
 
