@@ -66,10 +66,10 @@ sentinel run \
     --bams-dir /path/to/bams \
     --catalog catalogs/MyPanel_sites.tsv \
     --ref GRCh38.fa \
-    --out run_2026_05_17/
+    --out my_run/
 ```
 
-After `sentinel run` finishes you'll find in `run_2026_05_17/results/`:
+After `sentinel run` finishes you'll find in `my_run/results/`:
 
 - `report.html` - the interactive single-file report (open in a browser)
 - `report.xlsx` - the same per-sample table, plus a column legend, as Excel
