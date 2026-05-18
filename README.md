@@ -1,8 +1,6 @@
 <p align="center">
-  <img src="assets/logo.svg" alt="Sentinel" width="340">
+  <img src="assets/logo.svg" alt="Sentinel" width="540">
 </p>
-
-# Sentinel
 
 Sentinel finds cross-sample contamination, sample swaps, and identity drift on
 a run of targeted NGS samples. It works by comparing each sample's genotype
