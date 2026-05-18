@@ -12,10 +12,10 @@ into one identity group. See identity_loh.py for the rule.
 """
 import numpy as np
 
-from genotyper import call_genotypes
-from identity_loh import cluster_identity, identity_matrix_loh
-from pivot import pivot_matrices
-from tests.synth import long_ad_frame, random_genotypes
+from sentinel.genotyper import call_genotypes
+from sentinel.identity_loh import cluster_identity, identity_matrix_loh
+from sentinel.pivot import pivot_matrices
+from sentinel.tests.synth import long_ad_frame, random_genotypes
 
 
 def _build_loh_pair(rng):

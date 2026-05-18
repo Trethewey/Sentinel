@@ -2,10 +2,10 @@
 import numpy as np
 import pandas as pd
 
-from genotyper import call_genotypes
-from per_chrom import per_chrom_scores
-from pivot import pivot_matrices, site_chroms
-from tests.synth import random_genotypes, simulate_ad
+from sentinel.genotyper import call_genotypes
+from sentinel.per_chrom import per_chrom_scores
+from sentinel.pivot import pivot_matrices, site_chroms
+from sentinel.tests.synth import random_genotypes, simulate_ad
 
 
 def _build_multi_chrom_frame(rng, sample_genos, depth=80, alpha_mixes=None):

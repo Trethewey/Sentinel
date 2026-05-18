@@ -16,7 +16,7 @@ import numpy as np
 import pandas as pd
 import pysam
 
-from config import CACHE_DIR, MIN_BASE_QUAL, MIN_MAP_QUAL, WORK_DIR
+from .config import CACHE_DIR, MIN_BASE_QUAL, MIN_MAP_QUAL, WORK_DIR
 
 BASES = "ACGT"
 BASE_IDX = {b: i for i, b in enumerate(BASES)}

@@ -15,11 +15,11 @@ from pathlib import Path
 
 import pandas as pd
 
-from anchor_check import anchor_check, CONCORDANCE_THRESHOLD
-from config import MIN_DEPTH_CALL
-from genotyper import call_genotypes
-from io_ad import load_ad_long
-from pivot import pivot_matrices
+from .anchor_check import anchor_check, CONCORDANCE_THRESHOLD
+from .config import MIN_DEPTH_CALL
+from .genotyper import call_genotypes
+from .io_ad import load_ad_long
+from .pivot import pivot_matrices
 
 
 PROJ = Path(os.environ.get("PROJ", "."))

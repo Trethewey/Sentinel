@@ -10,7 +10,7 @@ from typing import Tuple
 import numpy as np
 import pandas as pd
 
-from config import GT_NOCALL
+from .config import GT_NOCALL
 
 
 def pivot_matrices(df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:

@@ -13,7 +13,7 @@ from typing import Tuple
 import numpy as np
 import pandas as pd
 
-from config import TAIL_HI, TAIL_LO
+from .config import TAIL_HI, TAIL_LO
 
 
 def vaf_tail_fraction(

@@ -8,7 +8,7 @@ from collections import Counter
 
 import pandas as pd
 
-from read_haplotypes import find_site_pairs, score_from_counters
+from sentinel.read_haplotypes import find_site_pairs, score_from_counters
 
 
 def test_pure_diploid_two_haplotypes():

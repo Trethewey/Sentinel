@@ -32,7 +32,7 @@ try:
 except ImportError:  # pragma: no cover - tests use a synthetic counter path
     pysam = None
 
-from config import HAP_MAX_PAIRS_EVAL, HAP_MIN_BASE_QUAL, HAP_MIN_SUPPORT_PER_HAP, HAP_PAIR_MAX_DIST
+from .config import HAP_MAX_PAIRS_EVAL, HAP_MIN_BASE_QUAL, HAP_MIN_SUPPORT_PER_HAP, HAP_PAIR_MAX_DIST
 
 Site = Tuple[str, int, str, str]  # (chrom, pos_1based, ref, alt)
 

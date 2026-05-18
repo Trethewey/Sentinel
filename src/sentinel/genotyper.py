@@ -4,7 +4,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from config import (
+from .config import (
     GT_HET, GT_HOM_ALT, GT_HOM_REF, GT_NOCALL,
     MAX_VAF_HOM_REF,
 )

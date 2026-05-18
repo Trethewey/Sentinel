@@ -12,7 +12,7 @@ from typing import Iterable, Optional
 import pandas as pd
 import pyarrow.dataset as ds
 
-from config import WORK_DIR
+from .config import WORK_DIR
 
 
 REQUIRED_COLS = ["sample_id", "chrom", "pos", "ref", "alt", "ref_depth", "alt_depth", "depth"]

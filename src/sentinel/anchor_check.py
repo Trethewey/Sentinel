@@ -17,7 +17,7 @@ from typing import Dict
 import numpy as np
 import pandas as pd
 
-from config import GT_NOCALL
+from .config import GT_NOCALL
 
 
 CONCORDANCE_THRESHOLD = 0.95

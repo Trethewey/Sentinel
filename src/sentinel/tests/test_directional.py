@@ -1,11 +1,11 @@
 """Directional matrix tests - score_homalt should track alpha cleanly."""
 import numpy as np
 
-from directional import directional_matrix
-from genotyper import call_genotypes
-from identity_loh import cluster_identity, identity_matrix_loh
-from pivot import pivot_matrices
-from tests.synth import long_ad_frame, random_genotypes
+from sentinel.directional import directional_matrix
+from sentinel.genotyper import call_genotypes
+from sentinel.identity_loh import cluster_identity, identity_matrix_loh
+from sentinel.pivot import pivot_matrices
+from sentinel.tests.synth import long_ad_frame, random_genotypes
 
 
 def test_homalt_score_recovers_alpha():
