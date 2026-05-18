@@ -5,7 +5,7 @@
 <p align="center">
   <a href="https://pypi.org/project/sentinel-cd/"><img src="https://img.shields.io/pypi/v/sentinel-cd?color=1f4e79&label=PyPI" alt="PyPI version"></a>
   <a href="https://github.com/Trethewey/Sentinel/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT license"></a>
-  <a href="https://doi.org/10.5281/zenodo.20264481"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.20264481.svg" alt="Zenodo DOI"></a>
+  <a href="https://doi.org/10.5281/zenodo.20264481"><img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20264481-1f4e79?logo=zenodo&logoColor=white" alt="Zenodo DOI"></a>
 </p>
 
 Sentinel finds cross-sample contamination, sample swaps, and identity drift on
