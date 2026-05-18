@@ -3,13 +3,17 @@
 </p>
 
 Sentinel finds cross-sample contamination, sample swaps, and identity drift on
-a run of targeted NGS samples. It works by comparing each sample's genotype
-calls to every other sample on the same run, looking for the asymmetric
-read-mixing signature that contamination leaves behind.
+a run of targeted NGS samples.
 
-It is a single command that takes a BAM directory, a sample sheet, and a SNP
-catalog, and writes a self-contained HTML report. No database, no daemon, no
-sample-sheet-format gymnastics.
+Sentinel reads each BAM at the SNP catalog you built for your panel, calls
+genotypes, and scores every sample against every other sample on the run
+looking for the asymmetric read-mixing pattern that contamination leaves
+behind. Layered on top: a per-sample drop in alt allele frequency at hom-alt
+sites, a VAF anomaly check, a read-level haplotype consistency test, and an
+identity anchor that catches outright swaps. Each sample comes back with a
+`PASS` / `WARN` / `FAIL` verdict and a best-guess donor when it failed. The
+output is a self-contained HTML report with an interactive 96-well plate view,
+a flagged-samples table, and a per-sample contamination bar plot.
 
 ---
 
