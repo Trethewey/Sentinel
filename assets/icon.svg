@@ -1,0 +1,34 @@
+<svg width="100%" viewBox="0 0 260 230" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>Sentinel shield icon</title>
+  <desc>Navy shield containing seventeen sequencing reads tracing an S-curve. One read in red marks a contaminated alignment.</desc>
+
+  <path d="M64 18 L196 18 L196 136 Q196 178 130 198 Q64 178 64 136 Z" fill="#042c53"/>
+
+  <rect x="105" y="22"  width="50" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="77"  y="31"  width="62" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="63"  y="40"  width="54" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="48"  y="49"  width="60" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="46"  y="58"  width="58" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="55"  y="67"  width="52" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="64"  y="76"  width="64" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="88"  y="85"  width="56" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="110" y="94"  width="58" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="127" y="103" width="66" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="149" y="112" width="54" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="153" y="121" width="62" height="8" rx="2" fill="#f09595"/>
+  <rect x="155" y="130" width="58" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="144" y="139" width="60" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="131" y="148" width="52" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="104" y="157" width="62" height="8" rx="2" fill="#85b7eb"/>
+  <rect x="90"  y="166" width="46" height="8" rx="2" fill="#85b7eb"/>
+
+  <polyline points="153,127 153,121 159,121" fill="none" stroke="#f7c1c1" stroke-width="1.5" stroke-linecap="round"/>
+  <polyline points="209,121 215,121 215,127" fill="none" stroke="#f7c1c1" stroke-width="1.5" stroke-linecap="round"/>
+  <polyline points="153,123 153,129 159,129" fill="none" stroke="#f7c1c1" stroke-width="1.5" stroke-linecap="round"/>
+  <polyline points="209,129 215,129 215,123" fill="none" stroke="#f7c1c1" stroke-width="1.5" stroke-linecap="round"/>
+
+  <path d="M64 18 L196 18 L196 136 Q196 178 130 198 Q64 178 64 136 Z" fill="none" stroke="#85b7eb" stroke-width="2"/>
+
+  <line x1="215" y1="125" x2="223" y2="125" stroke="#f09595" stroke-width="1"/>
+  <circle cx="229" cy="125" r="6" fill="#f09595"/>
+</svg>

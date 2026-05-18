@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 680 570" xmlns="http://www.w3.org/2000/svg">
+  <title>Sentinel NGS Pipeline</title>
+
+  <!-- Background -->
+  <rect width="680" height="570" fill="#0d1117"/>
+
+  <!-- ── INPUTS ─────────────────────────────────── -->
+  <text x="20" y="26" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="9.5" font-weight="700" fill="#4493f8" letter-spacing="2.5">INPUTS</text>
+  <line x1="85" y1="26" x2="660" y2="26" stroke="#21262d" stroke-width="1"/>
+
+  <!-- Col 1: Sample sheet -->
+  <rect x="20" y="42" width="32" height="14" rx="2" fill="#4493f8" fill-opacity="0.1"/>
+  <text x="36" y="52" text-anchor="middle" font-family="'SFMono-Regular',Consolas,monospace" font-size="9.5" fill="#4493f8">CSV</text>
+  <text x="20" y="70" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="13" font-weight="600" fill="#e6edf3">Sample sheet</text>
+  <text x="20" y="85" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="11" fill="#8b949e">One row per sample · name, type, BAM path</text>
+
+  <line x1="225" y1="40" x2="225" y2="100" stroke="#21262d" stroke-width="1"/>
+
+  <!-- Col 2: Aligned reads -->
+  <rect x="240" y="42" width="70" height="14" rx="2" fill="#4493f8" fill-opacity="0.1"/>
+  <text x="275" y="52" text-anchor="middle" font-family="'SFMono-Regular',Consolas,monospace" font-size="9.5" fill="#4493f8">BAM / CRAM</text>
+  <text x="240" y="70" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="13" font-weight="600" fill="#e6edf3">Aligned reads</text>
+  <text x="240" y="85" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="11" fill="#8b949e">Indexed · one file per sample</text>
+
+  <line x1="450" y1="40" x2="450" y2="100" stroke="#21262d" stroke-width="1"/>
+
+  <!-- Col 3: SNP catalogue -->
+  <rect x="465" y="42" width="62" height="14" rx="2" fill="#4493f8" fill-opacity="0.1"/>
+  <text x="496" y="52" text-anchor="middle" font-family="'SFMono-Regular',Consolas,monospace" font-size="9.5" fill="#4493f8">BED / VCF</text>
+  <text x="465" y="70" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="13" font-weight="600" fill="#e6edf3">SNP catalogue</text>
+  <text x="465" y="85" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="11" fill="#8b949e">Panel × gnomAD v4 common variants</text>
+
+  <!-- Arrow 1 -->
+  <polygon points="200,113 480,113 480,125 542,125 340,148 138,125 200,125" fill="#4493f8" fill-opacity="0.2"/>
+
+  <!-- ── PIPELINE ─────────────────────────────────── -->
+  <text x="20" y="168" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="9.5" font-weight="700" fill="#4493f8" letter-spacing="2.5">PIPELINE</text>
+  <line x1="100" y1="168" x2="660" y2="168" stroke="#21262d" stroke-width="1"/>
+
+  <!-- Step 1 -->
+  <text x="20" y="216" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="32" font-weight="800" fill="#4493f8" fill-opacity="0.2">01</text>
+  <text x="70" y="192" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="13" font-weight="600" fill="#e6edf3">Count alleles at each catalogue site</text>
+  <text x="70" y="208" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="11" fill="#8b949e">Walk every BAM at each SNP position and tally reference vs alternative read support</text>
+  <text x="70" y="221" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="11" fill="#8b949e">with a per-site depth filter.</text>
+  <circle cx="70" cy="233" r="2" fill="#4493f8"/>
+  <text x="76" y="237" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="10.5" fill="#6e7681">mpileup per sample</text>
+  <circle cx="204" cy="233" r="2" fill="#4493f8"/>
+  <text x="210" y="237" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="10.5" fill="#6e7681">ref / alt counts</text>
+  <circle cx="308" cy="233" r="2" fill="#4493f8"/>
+  <text x="314" y="237" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="10.5" fill="#6e7681">min depth filter</text>
+
+  <line x1="20" y1="253" x2="660" y2="253" stroke="#21262d" stroke-width="1"/>
+
+  <!-- Step 2 -->
+  <text x="20" y="316" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="32" font-weight="800" fill="#4493f8" fill-opacity="0.2">02</text>
+  <text x="70" y="279" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="13" font-weight="600" fill="#e6edf3">Score every sample against every other</text>
+  <text x="70" y="295" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="11" fill="#8b949e">Build a directional N×N contamination matrix and apply five orthogonal tests:</text>
+  <text x="70" y="308" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="11" fill="#8b949e">hom-alt deflation, VAF tail anomaly, haplotype consistency, identity-anchor cross-check,</text>
+  <text x="70" y="321" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="11" fill="#8b949e">and betamix proportion estimation.</text>
+  <circle cx="70" cy="333" r="2" fill="#4493f8"/>
+  <text x="76" y="337" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="10.5" fill="#6e7681">N×N matrix</text>
+  <circle cx="150" cy="333" r="2" fill="#4493f8"/>
+  <text x="156" y="337" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="10.5" fill="#6e7681">hom-alt deflation</text>
+  <circle cx="265" cy="333" r="2" fill="#4493f8"/>
+  <text x="271" y="337" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="10.5" fill="#6e7681">VAF tail anomaly</text>
+  <circle cx="70" cy="349" r="2" fill="#4493f8"/>
+  <text x="76" y="353" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="10.5" fill="#6e7681">haplotype consistency</text>
+  <circle cx="207" cy="349" r="2" fill="#4493f8"/>
+  <text x="213" y="353" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="10.5" fill="#6e7681">identity anchor</text>
+
+  <line x1="20" y1="369" x2="660" y2="369" stroke="#21262d" stroke-width="1"/>
+
+  <!-- Step 3 -->
+  <text x="20" y="418" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="32" font-weight="800" fill="#4493f8" fill-opacity="0.2">03</text>
+  <text x="70" y="393" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="13" font-weight="600" fill="#e6edf3">Apply sample-type&#x2013;aware verdicts</text>
+  <text x="70" y="409" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="11" fill="#8b949e">Combine scores with sample-type priors to issue a per-sample verdict. Where contamination</text>
+  <text x="70" y="422" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="11" fill="#8b949e">is flagged, the most probable donor is identified and reported.</text>
+  <circle cx="70" cy="436" r="3.5" fill="#3fb950"/>
+  <text x="78" y="440" font-family="'SFMono-Regular',Consolas,monospace" font-size="10" font-weight="700" fill="#3fb950">PASS</text>
+  <circle cx="118" cy="436" r="3.5" fill="#d29922"/>
+  <text x="126" y="440" font-family="'SFMono-Regular',Consolas,monospace" font-size="10" font-weight="700" fill="#d29922">WARN</text>
+  <circle cx="172" cy="436" r="3.5" fill="#f85149"/>
+  <text x="180" y="440" font-family="'SFMono-Regular',Consolas,monospace" font-size="10" font-weight="700" fill="#f85149">FAIL</text>
+  <text x="218" y="440" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="10.5" fill="#6e7681">+ best-guess donor</text>
+
+  <!-- Arrow 2 -->
+  <polygon points="200,459 480,459 480,471 542,471 340,494 138,471 200,471" fill="#4493f8" fill-opacity="0.2"/>
+
+  <!-- ── OUTPUTS ─────────────────────────────────── -->
+  <text x="20" y="512" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="9.5" font-weight="700" fill="#4493f8" letter-spacing="2.5">OUTPUTS</text>
+  <line x1="97" y1="512" x2="660" y2="512" stroke="#21262d" stroke-width="1"/>
+
+  <text x="20" y="532" font-family="'SFMono-Regular',Consolas,monospace" font-size="12" font-weight="600" fill="#e6edf3">report.html</text>
+  <text x="20" y="547" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="10.5" fill="#8b949e">Interactive report</text>
+
+  <line x1="178" y1="522" x2="178" y2="554" stroke="#21262d" stroke-width="1"/>
+
+  <text x="193" y="532" font-family="'SFMono-Regular',Consolas,monospace" font-size="12" font-weight="600" fill="#e6edf3">report.xlsx</text>
+  <text x="193" y="547" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="10.5" fill="#8b949e">Excel workbook</text>
+
+  <line x1="355" y1="522" x2="355" y2="554" stroke="#21262d" stroke-width="1"/>
+
+  <text x="370" y="532" font-family="'SFMono-Regular',Consolas,monospace" font-size="12" font-weight="600" fill="#e6edf3">per_sample.tsv</text>
+  <text x="370" y="547" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="10.5" fill="#8b949e">Tab-separated</text>
+
+  <line x1="533" y1="522" x2="533" y2="554" stroke="#21262d" stroke-width="1"/>
+
+  <text x="548" y="532" font-family="'SFMono-Regular',Consolas,monospace" font-size="12" font-weight="600" fill="#e6edf3">per_sample.csv</text>
+  <text x="548" y="547" font-family="-apple-system,'Segoe UI',Arial,sans-serif" font-size="10.5" fill="#8b949e">Comma-separated</text>
+
+</svg>

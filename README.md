@@ -25,40 +25,9 @@ a per-sample contamination bar plot.
 
 ## How it works
 
-```mermaid
-flowchart LR
-    subgraph Inputs
-        SS[sample sheet]
-        BAM[BAMs]
-        CAT[SNP catalog]
-    end
-    subgraph sentinel_run [sentinel run]
-        EX[extract_ad<br/>walk each BAM<br/>at catalog sites]
-        SC[pipeline<br/>identity, directional,<br/>deflation, tails,<br/>haplotypes]
-        PP[post_process<br/>anchor check<br/>+ verdict]
-    end
-    subgraph Outputs
-        H[report.html]
-        X[report.xlsx]
-        TSV[per_sample_report.tsv]
-        CSV[per_sample_report.csv]
-    end
-    SS --> EX
-    BAM --> EX
-    CAT --> EX
-    EX --> SC
-    SC --> PP
-    PP --> H
-    PP --> X
-    PP --> TSV
-    PP --> CSV
-    classDef input fill:#dde6f2,stroke:#1f4e79,stroke-width:1.5px,color:#0a1426
-    classDef stage fill:#1f4e79,stroke:#0a1426,stroke-width:1.5px,color:#ffffff
-    classDef output fill:#fef3c7,stroke:#d97706,stroke-width:1.5px,color:#0a1426
-    class SS,BAM,CAT input
-    class EX,SC,PP stage
-    class H,X,TSV,CSV output
-```
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Trethewey/Sentinel/main/assets/flow.svg" alt="Sentinel pipeline flow" width="100%">
+</p>
 
 At each SNP site, for every ordered pair of samples (donor S, recipient T),
 Sentinel computes:
