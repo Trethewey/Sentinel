@@ -17,6 +17,75 @@ a per-sample contamination bar plot.
 
 ---
 
+## How it works
+
+```mermaid
+flowchart LR
+    subgraph Inputs
+        SS[sample sheet]
+        BAM[BAMs]
+        CAT[SNP catalog]
+    end
+    subgraph sentinel_run [sentinel run]
+        EX[extract_ad<br/>walk each BAM<br/>at catalog sites]
+        SC[pipeline<br/>identity, directional,<br/>deflation, tails,<br/>haplotypes]
+        PP[post_process<br/>anchor check<br/>+ verdict]
+    end
+    subgraph Outputs
+        H[report.html]
+        X[report.xlsx]
+        TSV[per_sample_report.tsv]
+        CSV[per_sample_report.csv]
+    end
+    SS --> EX
+    BAM --> EX
+    CAT --> EX
+    EX --> SC
+    SC --> PP
+    PP --> H
+    PP --> X
+    PP --> TSV
+    PP --> CSV
+    classDef input fill:#dde6f2,stroke:#1f4e79,stroke-width:1.5px,color:#0a1426
+    classDef stage fill:#1f4e79,stroke:#0a1426,stroke-width:1.5px,color:#ffffff
+    classDef output fill:#fef3c7,stroke:#d97706,stroke-width:1.5px,color:#0a1426
+    class SS,BAM,CAT input
+    class EX,SC,PP stage
+    class H,X,TSV,CSV output
+```
+
+At each SNP site, for every ordered pair of samples (donor S, recipient T),
+Sentinel computes:
+
+    score(S, T) = mean alt-VAF in T over informative sites - background(T)
+
+Informative sites are those at which the recipient T is called
+homozygous-reference at sufficient depth, the donor S is alt-bearing, and T
+meets the recipient-depth threshold. The score reported as `score_homalt`
+further restricts the informative set to sites where S is homozygous-alt
+(not just heterozygous). At a donor-hom-alt / recipient-hom-ref site, the
+expected alt fraction in a recipient contaminated by the donor at fraction
+α equals α - the donor contributes alt-bearing reads, the recipient
+contributes reference reads. At a donor-het site that expected value equals
+α / 2. Restricting to hom-alt sites therefore gives a direct estimate of
+the contamination fraction from that donor.
+
+The `background(T)` term is the mean alt-VAF in T at T's own hom-ref sites,
+T's per-sample sequencing-error floor. Subtracting it makes `score(S, T)`
+zero when T has no contamination. The matrix is asymmetric: row sums over
+`score(S, T)` give the candidate donors pointing into recipient T, column
+sums give the samples T is leaking into. Within-identity-group pairs
+(replicates of the same individual) are masked out so they don't generate
+false donor inferences.
+
+Around that score, Sentinel layers a CHARR-style hom-alt deflation metric,
+a VAF-tail anomaly score, a read-level 3+-haplotype check, and an
+identity-anchor cross-check. The verdict logic combines all of these with
+sample-type-aware thresholds: controls and FFPE samples are held to looser
+bars than fresh clinical samples.
+
+---
+
 ## Install
 
 The detector ships as a Python package with a small CLI. Pick one:
@@ -208,69 +277,6 @@ DNA Nexus project as `report.html`, `per_sample_report.csv`, and
 | `concordance_to_expected` | Genetic similarity to the declared identity (0-1) |
 
 The Excel report carries every column and a legend sheet explaining each one.
-
----
-
-## How it works
-
-```mermaid
-flowchart LR
-    subgraph Inputs
-        SS[sample sheet]
-        BAM[BAMs]
-        CAT[SNP catalog]
-    end
-    subgraph sentinel_run [sentinel run]
-        EX[extract_ad<br/>walk each BAM<br/>at catalog sites]
-        SC[pipeline<br/>identity, directional,<br/>deflation, tails,<br/>haplotypes]
-        PP[post_process<br/>anchor check<br/>+ verdict]
-    end
-    subgraph Outputs
-        H[report.html]
-        X[report.xlsx]
-        TSV[per_sample_report.tsv]
-        CSV[per_sample_report.csv]
-    end
-    SS --> EX
-    BAM --> EX
-    CAT --> EX
-    EX --> SC
-    SC --> PP
-    PP --> H
-    PP --> X
-    PP --> TSV
-    PP --> CSV
-```
-
-At each SNP site, for every ordered pair of samples (donor S, recipient T),
-Sentinel computes:
-
-    score(S, T) = mean alt-VAF in T over informative sites - background(T)
-
-Informative sites are those at which the recipient T is called
-homozygous-reference at sufficient depth, the donor S is alt-bearing, and T
-meets the recipient-depth threshold. The score reported as `score_homalt`
-further restricts the informative set to sites where S is homozygous-alt
-(not just heterozygous). At a donor-hom-alt / recipient-hom-ref site, the
-expected alt fraction in a recipient contaminated by the donor at fraction
-α equals α — the donor contributes alt-bearing reads, the recipient
-contributes reference reads. At a donor-het site that expected value equals
-α / 2. Restricting to hom-alt sites therefore gives a direct estimate of
-the contamination fraction from that donor.
-
-The `background(T)` term is the mean alt-VAF in T at T's own hom-ref sites,
-T's per-sample sequencing-error floor. Subtracting it makes `score(S, T)`
-zero when T has no contamination. The matrix is asymmetric: row sums over
-`score(S, T)` give the candidate donors pointing into recipient T, column
-sums give the samples T is leaking into. Within-identity-group pairs
-(replicates of the same individual) are masked out so they don't generate
-false donor inferences.
-
-Around that score, Sentinel layers a CHARR-style hom-alt deflation metric,
-a VAF-tail anomaly score, a read-level 3+-haplotype check, and an
-identity-anchor cross-check. The verdict logic combines all of these with
-sample-type-aware thresholds: controls and FFPE samples are held to looser
-bars than fresh clinical samples.
 
 ---
 
