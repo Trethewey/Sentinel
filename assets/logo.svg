@@ -1,6 +1,5 @@
 <svg width="100%" viewBox="0 0 680 300" role="img" xmlns="http://www.w3.org/2000/svg">
   <title>Sentinel - NGS contamination detection</title>
-  <desc>A navy shield containing sequencing reads tracing an S, one read in red marking a contaminated alignment.</desc>
 
   <path d="M274 38 L406 38 L406 156 Q406 198 340 218 Q274 198 274 156 Z" fill="#042c53"/>
 
